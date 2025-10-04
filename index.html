@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索网站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+        }
+        
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin: 30px 0;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .search-input:focus {
+            border-color: #667eea;
+        }
+        
+        .search-btn {
+            padding: 15px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: #5a6fd8;
+        }
+        
+        .admin-panel {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .admin-panel h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .update-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .update-input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .update-btn {
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .update-btn:hover {
+            background: #218838;
+        }
+        
+        .content-display {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 5px;
+            min-height: 50px;
+        }
+        
+        .special-text {
+            font-size: 3em;
+            color: #ff6b6b;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>搜索网站</h1>
+        <p class="subtitle">简洁高效的搜索体验</p>
+        
+        <div class="special-text">123123</div>
+        
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" placeholder="输入关键词搜索...">
+            <button class="search-btn" onclick="performSearch()">搜索</button>
+        </div>
+        
+        <div class="admin-panel">
+            <h3>站长更新内容</h3>
+            <div class="update-form">
+                <input type="password" class="update-input" id="adminPassword" placeholder="输入管理密码">
+                <textarea class="update-input" id="contentInput" placeholder="输入要更新的内容..." rows="4"></textarea>
+                <button class="update-btn" onclick="updateContent()">更新内容</button>
+            </div>
+            <div class="content-display" id="contentDisplay">
+                <!-- 动态内容将显示在这里 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 简单的管理密码（实际应用中应该更安全）
+        const ADMIN_PASSWORD = "admin123";
+        
+        // 初始化显示内容
+        let websiteContent = "欢迎访问！站长可以在这里更新网站内容。";
+        document.getElementById('contentDisplay').textContent = websiteContent;
+        
+        // 搜索功能
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (query) {
+                // 默认使用百度搜索，可以更改为其他搜索引擎
+                window.open(`https://www.baidu.com/s?wd=${encodeURIComponent(query)}`, '_blank');
+            } else {
+                alert('请输入搜索关键词！');
+            }
+        }
+        
+        // 支持回车键搜索
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // 更新内容功能
+        function updateContent() {
+            const password = document.getElementById('adminPassword').value;
+            const newContent = document.getElementById('contentInput').value.trim();
+            
+            if (password !== ADMIN_PASSWORD) {
+                alert('管理密码错误！');
+                return;
+            }
+            
+            if (!newContent) {
+                alert('请输入要更新的内容！');
+                return;
+            }
+            
+            websiteContent = newContent;
+            document.getElementById('contentDisplay').textContent = websiteContent;
+            document.getElementById('contentInput').value = '';
+            document.getElementById('adminPassword').value = '';
+            
+            alert('内容更新成功！');
+        }
+    </script>
+</body>
+</html>
