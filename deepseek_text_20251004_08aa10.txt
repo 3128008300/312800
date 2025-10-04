@@ -1,0 +1,12 @@
+my-website/
+├── index.html          # 首页
+├── admin.html          # 管理页面
+├── css/
+│   └── style.css       # 样式文件
+├── js/
+│   └── script.js       # JavaScript文件
+├── php/                # 后端PHP文件
+│   ├── config.php      # 数据库配置
+│   ├── get_content.php # 获取内容
+│   └── update_content.php # 更新内容
+└── database.sql        # 数据库结构
